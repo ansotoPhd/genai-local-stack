@@ -1,0 +1,6 @@
+{
+  "$comment": "Config del plugin de Hindsight para opencode (HINDSIGHT_CONFIG); install.sh copia la plantilla a hindsight.json (local). Un banco por repo git: workspace/ es un repo propio (banco opencode::workspace) y cada proyecto con su git dentro tiene el suyo. Opciones: https://hindsight.vectorize.io/sdks/integrations/coding-agents",
+  "serverMode": "self-hosted",
+  "bankIdTemplate": "opencode::{gitProject}",
+  "codebaseSurvey": false
+}

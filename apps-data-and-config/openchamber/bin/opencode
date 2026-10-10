@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Envoltorio de opencode para OpenChamber: cualquier instancia que lanza OpenChamber usa la
+# instalación aislada del stack (config en opencode/config, estado en opencode/data, auth de Go).
+set -euo pipefail
+SVC="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../opencode" && pwd)"
+
+set -a; source "$SVC/config/.env"; set +a
+source "$SVC/env.sh"
+
+exec "$SVC/app/node_modules/.bin/opencode" "$@"

@@ -1,0 +1,9 @@
+{
+  "name": "genai-opencode",
+  "private": true,
+  "description": "opencode aislado del stack GenAI",
+  "dependencies": {
+    "@opencode/cli": "2.2.5",
+    "@vectorize-io/hindsight-coding-agents": "0.8.4"
+  }
+}

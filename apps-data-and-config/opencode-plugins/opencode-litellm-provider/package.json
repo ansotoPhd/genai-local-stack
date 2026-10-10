@@ -1,0 +1,19 @@
+{
+  "name": "@genai-local-stack/opencode-litellm-provider",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Plugin de opencode que descubre los modelos del proxy LiteLLM del stack",
+  "license": "MIT",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@opencode/plugin": "2.2.5",
+    "@types/node": "26.6.6",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "genai-hindsight-control-plane",
+  "private": true,
+  "description": "UI (control plane) de Hindsight del stack GenAI",
+  "dependencies": {
+    "@vectorize-io/hindsight-control-plane": "0.10.3"
+  }
+}

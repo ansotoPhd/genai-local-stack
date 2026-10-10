@@ -1,0 +1,23 @@
+[project]
+name = "genai-jupyterlab"
+version = "0.1.0"
+description = "JupyterLab local del stack GenAI (el kernel por defecto usa este mismo entorno)"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "jupyterlab>=4.6.4",
+    "ipykernel",
+    "ipywidgets",
+    "openai",
+    "python-dotenv",
+    # Postgres del stack (DATABASE_URL) con pgvector
+    "psycopg[binary]",
+    "pgvector",
+    # Exportar trazas/métricas/logs a otel-lgtm (OTEL_EXPORTER_OTLP_ENDPOINT)
+    "opentelemetry-sdk",
+    "opentelemetry-exporter-otlp-proto-http",
+    # Memoria a largo plazo (Hindsight)
+    "hindsight-client",
+]
+
+[tool.uv]
+package = false

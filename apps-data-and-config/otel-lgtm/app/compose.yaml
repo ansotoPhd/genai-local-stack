@@ -1,0 +1,36 @@
+# Backend OpenTelemetry todo-en-uno de Grafana (Grafana, Prometheus, Tempo, Loki, Pyroscope y
+# OTel Collector), pensado para desarrollo. Las variables vienen de config/.env (usa compose.sh).
+name: ${COMPOSE_PROJECT_NAME:-genai-otel-lgtm}
+
+services:
+  lgtm:
+    image: grafana/otel-lgtm:0.36.0
+    # Corre como root (lo que espera la imagen): Grafana instala al arrancar sus plugins de
+    # datasource moviéndolos desde una carpeta de la imagen propiedad de root; con otro usuario
+    # fallan y Tempo/Loki/Prometheus quedan sin registrar. Por eso los datos van en un volumen
+    # Docker y no en data/ (así no quedan ficheros de root en el repo).
+    init: true
+    env_file: ../config/.env
+    environment:
+      # Tempo escribe por defecto en /var/tempo, fuera del volumen: se lleva a /data para conservarlo.
+      TEMPO_EXTRA_ARGS: >-
+        -live-store.wal.path=/data/tempo/live-store/traces
+        -live-store.shutdown_marker_dir=/data/tempo/live-store/shutdown-marker
+        ${TEMPO_EXTRA_ARGS:-}
+    ports:
+      - "127.0.0.1:${LGTM_GRAFANA_PORT:-3000}:3000"
+      - "127.0.0.1:${LGTM_OTLP_GRPC_PORT:-4317}:4317"
+      - "127.0.0.1:${LGTM_OTLP_HTTP_PORT:-4318}:4318"
+      - "127.0.0.1:${LGTM_PROMETHEUS_PORT:-9090}:9090"
+      - "127.0.0.1:${LGTM_TEMPO_PORT:-3200}:3200"
+      - "127.0.0.1:${LGTM_PYROSCOPE_PORT:-4040}:4040"
+    volumes:
+      - lgtm-data:/data
+    # Usa el healthcheck de la imagen, comprobando cada 2 s durante el arranque.
+    healthcheck:
+      start_period: 3m
+      start_interval: 2s
+
+volumes:
+  # Métricas, trazas, logs y dashboards. Se conservan al parar; ./stop.sh -v los borra.
+  lgtm-data:

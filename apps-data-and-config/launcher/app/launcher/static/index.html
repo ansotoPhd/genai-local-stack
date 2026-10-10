@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>genai-local-stack · Launcher</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='%232f5fd0'/><path d='M6 4.5v7l5.5-3.5z' fill='white'/></svg>">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>genai-local-stack</h1>
+      <p class="subtitle">Launcher · al cerrarlo (Ctrl+C) se para todo lo que arrancó</p>
+    </div>
+    <button id="stop-all" class="btn btn-danger">Parar todo</button>
+  </header>
+
+  <div class="content">
+  <main>
+    <section>
+      <div class="section-head">
+        <div>
+          <h2><span class="step">1</span> Core</h2>
+          <p class="hint">Postgres y otel-lgtm, después LiteLLM.</p>
+        </div>
+        <button id="start-core" class="btn btn-primary">Arrancar core</button>
+      </div>
+      <div class="grid" data-group="core"></div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2><span class="step">2</span> opencode</h2>
+          <p class="hint">Arranca lo que falte (core y, si la eliges, la memoria) y abre su interfaz web.</p>
+        </div>
+      </div>
+      <div class="launch">
+        <label class="toggle">
+          <input type="checkbox" id="with-hindsight" checked>
+          <span>Con memoria (Hindsight)</span>
+        </label>
+        <button id="open-opencode" class="btn btn-primary">Abrir opencode</button>
+        <p id="launch-msg" class="launch-msg" aria-live="polite"></p>
+      </div>
+      <div class="grid" data-group="client"></div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2><span class="step">3</span> Memoria y notebooks</h2>
+          <p class="hint">Hindsight se arranca solo al abrir opencode con memoria.</p>
+        </div>
+      </div>
+      <div class="grid" data-group="memory"></div>
+    </section>
+  </main>
+  </div>
+
+  <aside id="logs" class="logs" hidden>
+    <div class="logs-head">
+      <strong id="logs-title">Logs</strong>
+      <label class="follow"><input type="checkbox" id="logs-follow" checked> Seguir</label>
+      <button id="logs-close" class="btn btn-small" aria-label="Cerrar logs">Cerrar</button>
+    </div>
+    <pre id="logs-text"></pre>
+  </aside>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

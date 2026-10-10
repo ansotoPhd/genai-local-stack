@@ -1,0 +1,27 @@
+// Plantilla de configuración de opencode.
+// install.sh la copia a opencode.jsonc (local, ignorado por git); edita ese fichero.
+// Los modelos de LiteLLM los descubre el plugin opencode-litellm-provider: no hace falta declararlos.
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "local_litellm/go-deepseek-v4.1-flash",
+  // Plugins, con rutas relativas a este fichero (con un directorio, opencode carga su index.js):
+  //   - Hindsight: memoria a largo plazo, instalada en app/ y con su config en hindsight.json.
+  //   - opencode-litellm-provider: descubre los modelos de LiteLLM (en opencode-plugins/).
+  "plugin": [
+    "../app/node_modules/@vectorize-io/hindsight-coding-agents",
+    "../../opencode-plugins/opencode-litellm-provider",
+  ],
+  // El agente no puede leer ni escribir fuera de la raíz del proyecto (workspace/ o el repo abierto).
+  "permissions": [{ "action": "external_directory", "resource": "*", "effect": "deny" }],
+  "providers": {
+    "local_litellm": {
+      "name": "Local LiteLLM",
+      "package": "@opencode/ai/providers/openai-compatible",
+      "env": ["LITELLM_API_KEY"],
+      // litellm: true marca el provider para el plugin. Sin baseURL, el plugin usa LITELLM_BASE_URL (config/.env).
+      "settings": { "litellm": true },
+      // Opcional: ajustes a mano sobre lo descubierto (se aplican campo a campo), p. ej.:
+      // "models": { "go-gpt-6-luna": { "name": "GPT-6 Luna", "limit": { "context": 400000 } } },
+    },
+  },
+}

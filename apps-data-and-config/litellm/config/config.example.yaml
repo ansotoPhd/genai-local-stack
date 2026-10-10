@@ -1,0 +1,663 @@
+# -----------------------------------------------------------------------------------------
+#  Configuración de LiteLLM (la plantilla versionada es config.example.yaml).
+#  Único proveedor: OpenCode Go (suscripción). La clave va en config/.env (OPENCODE_GO_API_KEY).
+#
+#  Los modelos se generan desde https://opencode.ai/inference/go/v1/models, que ya publica
+#  precios, contexto y capacidades. Nombres: go-<id>.
+#
+#  x-opencode-session: identificador estable que exige el gateway de Go. Aquí es fijo para
+#  todo el stack: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+# -----------------------------------------------------------------------------------------
+
+credential_list:
+  - credential_name: opencode_go
+    credential_values:
+      api_key: os.environ/OPENCODE_GO_API_KEY
+    credential_info:
+      description: "OpenCode Go (suscripción)"
+
+model_list:
+
+  - model_name: go-beam-free
+    litellm_params:
+      model: openai/beam-free
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Beam Free (OpenCode Go)"
+      max_input_tokens: 1048576
+      max_output_tokens: 131072
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      cache_read_input_token_cost: 0
+      supports_function_calling: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, medium, high, xhigh, max]
+      mode: chat
+
+  - model_name: go-claude-haiku-5-5
+    litellm_params:
+      model: openai/claude-haiku-5-5
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Claude Haiku 5.5 (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 128000
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 5e-07
+      cache_read_input_token_cost: 1e-08
+      cache_creation_input_token_cost: 1.25e-07
+      supports_function_calling: true
+      supports_vision: true
+      supports_pdf_input: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, medium, high, xhigh, max]
+      mode: chat
+
+  - model_name: go-deepseek-v4-pro
+    litellm_params:
+      model: openai/deepseek-v4-pro
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "DeepSeek V4 Pro (New) (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 384000
+      input_cost_per_token: 6.6e-07
+      output_cost_per_token: 1.98e-06
+      cache_read_input_token_cost: 2.2e-08
+      supports_function_calling: true
+      supports_reasoning: true
+      reasoning_effort_levels: [high, max]
+      mode: chat
+
+  - model_name: go-deepseek-v4.1-flash
+    litellm_params:
+      model: openai/deepseek-v4.1-flash
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "DeepSeek V4.1 Flash (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 384000
+      input_cost_per_token: 1.5e-07
+      output_cost_per_token: 6e-07
+      cache_read_input_token_cost: 3e-09
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, high, max]
+      mode: chat
+
+  - model_name: go-gemini-4-argon
+    litellm_params:
+      model: openai/gemini-4-argon
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Gemini 4 Argon (OpenCode Go)"
+      max_input_tokens: 1048576
+      max_output_tokens: 65536
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+      cache_read_input_token_cost: 1e-07
+      supports_function_calling: true
+      supports_vision: true
+      supports_pdf_input: true
+      supports_audio_input: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, medium, high]
+      mode: chat
+
+  - model_name: go-glm-5.2
+    litellm_params:
+      model: openai/glm-5.2
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "GLM-5.2 (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 131072
+      input_cost_per_token: 1.4e-06
+      output_cost_per_token: 4.4e-06
+      cache_read_input_token_cost: 2.6e-07
+      supports_function_calling: true
+      supports_reasoning: true
+      reasoning_effort_levels: [high, max]
+      mode: chat
+
+  - model_name: go-glm-5.3
+    litellm_params:
+      model: openai/glm-5.3
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "GLM-5.3 (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 131072
+      input_cost_per_token: 1.4e-06
+      output_cost_per_token: 4.4e-06
+      cache_read_input_token_cost: 2.6e-07
+      supports_function_calling: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, high, max]
+      mode: chat
+
+  - model_name: go-glm-5.3-flash
+    litellm_params:
+      model: openai/glm-5.3-flash
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "GLM-5.3-Flash (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 131072
+      input_cost_per_token: 1.5e-07
+      output_cost_per_token: 5e-07
+      cache_read_input_token_cost: 3e-08
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, high, max]
+      mode: chat
+
+  - model_name: go-gpt-5.6-luna
+    litellm_params:
+      model: openai/gpt-5.6-luna
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "GPT-5.6 Luna (OpenCode Go)"
+      max_input_tokens: 922000
+      max_output_tokens: 128000
+      input_cost_per_token: 2e-07
+      output_cost_per_token: 1.2e-06
+      cache_read_input_token_cost: 2e-08
+      cache_creation_input_token_cost: 2.5e-07
+      supports_function_calling: true
+      supports_vision: true
+      supports_pdf_input: true
+      supports_reasoning: true
+      reasoning_effort_levels: [none, low, medium, high, xhigh, max]
+      mode: chat
+
+  - model_name: go-gpt-6-luna
+    litellm_params:
+      model: openai/gpt-6-luna
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "GPT-6 Luna (OpenCode Go)"
+      max_input_tokens: 922000
+      max_output_tokens: 128000
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 5e-07
+      cache_read_input_token_cost: 1e-08
+      cache_creation_input_token_cost: 1.25e-07
+      supports_function_calling: true
+      supports_vision: true
+      supports_pdf_input: true
+      supports_reasoning: true
+      reasoning_effort_levels: [none, low, medium, high, xhigh, max]
+      mode: chat
+
+  - model_name: go-grok-4.7
+    litellm_params:
+      model: openai/grok-4.7
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Grok 4.7 (OpenCode Go)"
+      max_input_tokens: 500000
+      max_output_tokens: 500000
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 6e-06
+      cache_read_input_token_cost: 5e-07
+      supports_function_calling: true
+      supports_vision: true
+      supports_pdf_input: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, medium, high, xhigh]
+      mode: chat
+
+  - model_name: go-hy3
+    litellm_params:
+      model: openai/hy3
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Hy3 (OpenCode Go)"
+      max_input_tokens: 192000
+      max_output_tokens: 128000
+      input_cost_per_token: 1.4e-07
+      output_cost_per_token: 5.8e-07
+      cache_read_input_token_cost: 3.5e-08
+      supports_function_calling: true
+      supports_reasoning: true
+      reasoning_effort_levels: [none, low, high]
+      mode: chat
+
+  - model_name: go-hy4-preview
+    litellm_params:
+      model: openai/hy4-preview
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Hy4 preview (OpenCode Go)"
+      max_input_tokens: 1024000
+      max_output_tokens: 64000
+      input_cost_per_token: 8.34e-07
+      output_cost_per_token: 2.501e-06
+      cache_read_input_token_cost: 4.2e-08
+      supports_function_calling: true
+      supports_reasoning: true
+      reasoning_effort_levels: [none, high]
+      mode: chat
+
+  - model_name: go-iceman-contributor-free
+    litellm_params:
+      model: openai/iceman-contributor-free
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Iceman Contributor Free (OpenCode Go)"
+      max_input_tokens: 262144
+      max_output_tokens: 131072
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      cache_read_input_token_cost: 0
+      supports_function_calling: true
+      supports_reasoning: true
+      reasoning_effort_levels: []
+      mode: chat
+
+  - model_name: go-kimi-k2.7-code
+    litellm_params:
+      model: openai/kimi-k2.7-code
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Kimi K2.7 Code (OpenCode Go)"
+      max_input_tokens: 262144
+      max_output_tokens: 262144
+      input_cost_per_token: 9.5e-07
+      output_cost_per_token: 4e-06
+      cache_read_input_token_cost: 1.9e-07
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: []
+      mode: chat
+
+  - model_name: go-kimi-k3
+    litellm_params:
+      model: openai/kimi-k3
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Kimi K3 (OpenCode Go)"
+      max_input_tokens: 1048576
+      max_output_tokens: 131072
+      input_cost_per_token: 3e-06
+      output_cost_per_token: 1.5e-05
+      cache_read_input_token_cost: 3e-07
+      cache_creation_input_token_cost: 3e-06
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [max]
+      mode: chat
+
+  - model_name: go-kimi-k3.1-pro
+    litellm_params:
+      model: openai/kimi-k3.1-pro
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Kimi K3.1 Pro (OpenCode Go)"
+      max_input_tokens: 1048576
+      max_output_tokens: 131072
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+      cache_read_input_token_cost: 2e-07
+      cache_creation_input_token_cost: 2e-06
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, high, max]
+      mode: chat
+
+  - model_name: go-longcat-2.0
+    litellm_params:
+      model: openai/longcat-2.0
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "LongCat-2.0 (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 131072
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
+      cache_read_input_token_cost: 6e-09
+      supports_function_calling: true
+      supports_reasoning: true
+      reasoning_effort_levels: []
+      mode: chat
+
+  - model_name: go-mimo-v2.6-flash
+    litellm_params:
+      model: openai/mimo-v2.6-flash
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "MiMo-V2.6-Flash (OpenCode Go)"
+      max_input_tokens: 1048576
+      max_output_tokens: 131072
+      input_cost_per_token: 1.4e-07
+      output_cost_per_token: 2.8e-07
+      cache_read_input_token_cost: 2.8e-09
+      supports_function_calling: true
+      supports_vision: true
+      supports_audio_input: true
+      supports_reasoning: true
+      reasoning_effort_levels: []
+      mode: chat
+
+  - model_name: go-mimo-v2.6-pro
+    litellm_params:
+      model: openai/mimo-v2.6-pro
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "MiMo-V2.6-Pro (OpenCode Go)"
+      max_input_tokens: 1048576
+      max_output_tokens: 131072
+      input_cost_per_token: 4.35e-07
+      output_cost_per_token: 8.7e-07
+      cache_read_input_token_cost: 3.625e-09
+      supports_function_calling: true
+      supports_vision: true
+      supports_audio_input: true
+      supports_reasoning: true
+      reasoning_effort_levels: []
+      mode: chat
+
+  - model_name: go-minimax-m3
+    litellm_params:
+      model: openai/minimax-m3
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "MiniMax-M3 (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 131072
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
+      cache_read_input_token_cost: 6e-08
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: []
+      mode: chat
+
+  - model_name: go-minimax-m3.1-flash
+    litellm_params:
+      model: openai/minimax-m3.1-flash
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "MiniMax M3.1 Flash (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 512000
+      input_cost_per_token: 1.5e-07
+      output_cost_per_token: 6e-07
+      cache_read_input_token_cost: 1.5e-08
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, medium, high, xhigh, max]
+      mode: chat
+
+  - model_name: go-muse-spark-1.2-contributor
+    litellm_params:
+      model: openai/muse-spark-1.2-contributor
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Muse Spark 1.2 Contributor (OpenCode Go)"
+      max_input_tokens: 1048576
+      max_output_tokens: 131072
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 2e-07
+      cache_read_input_token_cost: 2e-09
+      supports_function_calling: true
+      supports_vision: true
+      supports_pdf_input: true
+      supports_audio_input: true
+      supports_reasoning: true
+      reasoning_effort_levels: [minimal, low, medium, high, xhigh]
+      mode: chat
+
+  - model_name: go-muse-spark-1.3-contributor
+    litellm_params:
+      model: openai/muse-spark-1.3-contributor
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Muse Spark 1.3 Contributor (OpenCode Go)"
+      max_input_tokens: 1048576
+      max_output_tokens: 131072
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 2e-07
+      cache_read_input_token_cost: 2e-09
+      supports_function_calling: true
+      supports_vision: true
+      supports_pdf_input: true
+      supports_audio_input: true
+      supports_reasoning: true
+      reasoning_effort_levels: [minimal, low, medium, high, xhigh]
+      mode: chat
+
+  - model_name: go-qwen3.7-plus
+    litellm_params:
+      model: openai/qwen3.7-plus
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Qwen3.7 Plus (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      input_cost_per_token: 4e-07
+      output_cost_per_token: 1.6e-06
+      cache_read_input_token_cost: 4e-08
+      cache_creation_input_token_cost: 5e-07
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: []
+      mode: chat
+
+  - model_name: go-qwen3.8-flash
+    litellm_params:
+      model: openai/qwen3.8-flash
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Qwen3.8 Flash (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 131072
+      input_cost_per_token: 1.5e-07
+      output_cost_per_token: 4.7e-07
+      cache_read_input_token_cost: 1.6e-08
+      cache_creation_input_token_cost: 2e-07
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, medium, xhigh]
+      mode: chat
+
+  - model_name: go-qwen3.8-max
+    litellm_params:
+      model: openai/qwen3.8-max
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Qwen3.8 Max (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 131072
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 6e-06
+      cache_read_input_token_cost: 2.5e-07
+      cache_creation_input_token_cost: 2.5e-06
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, medium, xhigh]
+      mode: chat
+
+  - model_name: go-step-5-preview
+    litellm_params:
+      model: openai/step-5-preview
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Step 5 Preview (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      input_cost_per_token: 1e-06
+      output_cost_per_token: 2.7e-06
+      cache_read_input_token_cost: 1e-07
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, medium, high]
+      mode: chat
+
+# ************************************
+# AJUSTES DE LITELLM
+# ************************************
+
+litellm_settings:
+  drop_params: true
+  modify_params: true
+  callbacks: ["otel"]
+
+# ************************************
+# AJUSTES DEL SERVIDOR
+# ************************************
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

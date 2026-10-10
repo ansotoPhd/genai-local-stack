@@ -1,0 +1,20 @@
+# IDE
+.idea/
+
+# Directorio de trabajo personal: es un repo git propio (lo crea setup.sh)
+/workspace/
+
+# Instalaciones (se regeneran con install.sh)
+.venv/
+node_modules/
+
+# Config local: solo se versionan las plantillas (*.example*)
+/apps-data-and-config/*/config/*
+!/apps-data-and-config/*/config/*.example*
+
+# Estado generado en ejecución
+/apps-data-and-config/*/data/*
+!/apps-data-and-config/*/data/.gitkeep
+
+# Caché de Python
+__pycache__/

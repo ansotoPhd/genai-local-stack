@@ -1,0 +1,11 @@
+{
+  "name": "genai-openchamber",
+  "private": true,
+  "description": "OpenChamber (web/PWA) para el opencode aislado del stack",
+  "dependencies": {
+    "@openchamber/web": "2.5.3"
+  },
+  "allowScripts": {
+    "node-pty@1.2.0-beta.15": true
+  }
+}

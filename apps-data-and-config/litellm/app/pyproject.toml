@@ -1,0 +1,19 @@
+[project]
+name = "genai-litellm"
+version = "0.1.0"
+description = "Proxy LiteLLM local del stack GenAI"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "litellm[proxy]>=1.106.6",
+    # Cliente de BD del proxy (DATABASE_URL). Hace falta incluso sin BD: el proxy lo importa al
+    # gestionar errores de autenticación (sin él, una key inválida devuelve 500 en vez de 401).
+    "prisma>=0.11.0,<1.0",
+    # OpenTelemetry v2 (LITELLM_OTEL_V2) hacia otel-lgtm: SDK, exportador OTLP y la
+    # instrumentación de FastAPI, que crea el span raíz de cada petición HTTP.
+    "opentelemetry-sdk",
+    "opentelemetry-exporter-otlp-proto-http",
+    "opentelemetry-instrumentation-fastapi",
+]
+
+[tool.uv]
+package = false
