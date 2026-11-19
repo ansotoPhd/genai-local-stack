@@ -6,10 +6,12 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 APPS="$ROOT/apps-data-and-config"
 # Rutas relativas a apps-data-and-config/ (los plugins propios de opencode, en opencode-plugins/, no
-# tienen dependencias de ejecución y no necesitan instalarse). openchamber necesita Node 24 (nvm).
+# tienen dependencias de ejecución y no necesitan instalarse). openchamber necesita Node 24
+# (de nvm, de fnm o del PATH; ver openchamber/node24.sh).
 OPENCODE=opencode
 SERVICES=(postgres otel-lgtm litellm hindsight jupyterlab "$OPENCODE" openchamber launcher)
 DOCKER_SERVICES=" postgres otel-lgtm "
+source "$APPS/openchamber/node24.sh"
 
 # workspace/ es un repo git propio: así opencode lo toma como raíz del proyecto (y no este repo,
 # con las .env del stack) y su búsqueda de ficheros no queda oculta por nuestro .gitignore.
@@ -36,8 +38,8 @@ for svc in "${SERVICES[@]}"; do
     continue
   fi
   # OpenChamber exige Node 24; sin él se omite sin romper el resto del stack.
-  if [[ "$svc" == "openchamber" ]] && ! ls -d "$HOME"/.nvm/versions/node/v24.*/bin > /dev/null 2>&1; then
-    echo "==> Node 24 no está disponible (nvm install 24): se omite $svc"
+  if [[ "$svc" == "openchamber" ]] && ! find_node24 > /dev/null; then
+    echo "==> $NODE24_MISSING_MSG: se omite $svc"
     continue
   fi
   echo "==> Instalando $svc"

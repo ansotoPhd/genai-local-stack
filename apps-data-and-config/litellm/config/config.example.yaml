@@ -2,8 +2,8 @@
 #  Configuración de LiteLLM (la plantilla versionada es config.example.yaml).
 #  Único proveedor: OpenCode Go (suscripción). La clave va en config/.env (OPENCODE_GO_API_KEY).
 #
-#  Los modelos se generan desde https://opencode.ai/inference/go/v1/models, que ya publica
-#  precios, contexto y capacidades. Nombres: go-<id>.
+#  model_list se genera desde https://opencode.ai/inference/go/v1/models, que ya publica
+#  precios, contexto y capacidades, con update-models.py (no lo edites a mano). Nombres: go-<id>.
 #
 #  x-opencode-session: identificador estable que exige el gateway de Go. Aquí es fijo para
 #  todo el stack: 86745f52-0cfb-508d-84b2-6efa56e9a04a
@@ -73,7 +73,7 @@ model_list:
         User-Agent: genai-local-stack/1.0
       drop_params: true
     model_info:
-      display_name: "DeepSeek V4 Pro (New) (OpenCode Go)"
+      display_name: "DeepSeek V4 Pro (OpenCode Go)"
       max_input_tokens: 1000000
       max_output_tokens: 384000
       input_cost_per_token: 6.6e-07
@@ -94,7 +94,7 @@ model_list:
         User-Agent: genai-local-stack/1.0
       drop_params: true
     model_info:
-      display_name: "DeepSeek V4.1 Flash (OpenCode Go)"
+      display_name: "DeepSeek V4.1 Flash 1017 (OpenCode Go)"
       max_input_tokens: 1000000
       max_output_tokens: 384000
       input_cost_per_token: 1.5e-07
@@ -286,6 +286,50 @@ model_list:
       reasoning_effort_levels: [none, low, high]
       mode: chat
 
+  - model_name: go-hy4
+    litellm_params:
+      model: openai/hy4
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Hy4 (OpenCode Go)"
+      max_input_tokens: 983010
+      max_output_tokens: 65536
+      input_cost_per_token: 8.34e-07
+      output_cost_per_token: 2.501e-06
+      cache_read_input_token_cost: 4.2e-08
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [none, high]
+      mode: chat
+
+  - model_name: go-hy4-flash-free
+    litellm_params:
+      model: openai/hy4-flash-free
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Hy4 flash Free (OpenCode Go)"
+      max_input_tokens: 983040
+      max_output_tokens: 65536
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      cache_read_input_token_cost: 0
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [none, high]
+      mode: chat
+
   - model_name: go-hy4-preview
     litellm_params:
       model: openai/hy4-preview
@@ -362,7 +406,7 @@ model_list:
     model_info:
       display_name: "Kimi K3 (OpenCode Go)"
       max_input_tokens: 1048576
-      max_output_tokens: 131072
+      max_output_tokens: 1048576
       input_cost_per_token: 3e-06
       output_cost_per_token: 1.5e-05
       cache_read_input_token_cost: 3e-07
@@ -385,7 +429,7 @@ model_list:
     model_info:
       display_name: "Kimi K3.1 Pro (OpenCode Go)"
       max_input_tokens: 1048576
-      max_output_tokens: 131072
+      max_output_tokens: 1048576
       input_cost_per_token: 2e-06
       output_cost_per_token: 1e-05
       cache_read_input_token_cost: 2e-07
@@ -413,6 +457,28 @@ model_list:
       output_cost_per_token: 1.2e-06
       cache_read_input_token_cost: 6e-09
       supports_function_calling: true
+      supports_reasoning: true
+      reasoning_effort_levels: []
+      mode: chat
+
+  - model_name: go-longcat-2.5-free
+    litellm_params:
+      model: openai/longcat-2.5-free
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "LongCat 2.5 Free (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 262144
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      cache_read_input_token_cost: 0
+      supports_function_calling: true
+      supports_vision: true
       supports_reasoning: true
       reasoning_effort_levels: []
       mode: chat
@@ -624,6 +690,29 @@ model_list:
       reasoning_effort_levels: [low, medium, xhigh]
       mode: chat
 
+  - model_name: go-qwen4-max
+    litellm_params:
+      model: openai/qwen4-max
+      litellm_credential_name: opencode_go
+      api_base: https://opencode.ai/inference/go/openai/v1
+      extra_headers:
+        x-opencode-session: 86745f52-0cfb-508d-84b2-6efa56e9a04a
+        User-Agent: genai-local-stack/1.0
+      drop_params: true
+    model_info:
+      display_name: "Qwen4 Max (OpenCode Go)"
+      max_input_tokens: 1000000
+      max_output_tokens: 262144
+      input_cost_per_token: 1.5e-06
+      output_cost_per_token: 4.5e-06
+      cache_read_input_token_cost: 7.5e-08
+      cache_creation_input_token_cost: 1.875e-06
+      supports_function_calling: true
+      supports_vision: true
+      supports_reasoning: true
+      reasoning_effort_levels: [low, high, xhigh]
+      mode: chat
+
   - model_name: go-step-5-preview
     litellm_params:
       model: openai/step-5-preview
@@ -661,3 +750,6 @@ litellm_settings:
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
+  # Sin proxy inverso delante: los clientes conectan directamente. Activa además el límite de
+  # intentos de login de la UI por dirección de origen (y no se confía en X-Forwarded-For).
+  trusted_proxy_ranges: []

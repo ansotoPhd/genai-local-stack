@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "Proxy LiteLLM local del stack GenAI"
 requires-python = ">=3.14,<3.15"
 dependencies = [
-    "litellm[proxy]>=1.106.6",
+    # Rama LTS 1.108.x (lts/1.108.x en GitHub): update.sh sube dentro de ella. Para cambiar de
+    # rama, ajusta este rango.
+    "litellm[proxy]>=1.108.11,<1.109",
     # Cliente de BD del proxy (DATABASE_URL). Hace falta incluso sin BD: el proxy lo importa al
     # gestionar errores de autenticación (sin él, una key inválida devuelve 500 en vez de 401).
     "prisma>=0.11.0,<1.0",

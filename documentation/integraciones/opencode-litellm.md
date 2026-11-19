@@ -128,11 +128,14 @@ Para comprobar qué ve opencode:
 apps-data-and-config/opencode/start.sh models   # lista de modelos descubiertos
 ```
 
+Con el servidor de fondo recién arrancado, la primera llamada puede salir sin los modelos de `local_litellm`: repítela (ver Diagnóstico).
+
 ## Diagnóstico
 
 | Síntoma | Causa probable |
 |---|---|
 | `local_litellm` sin modelos | LiteLLM no estaba en marcha la primera vez (no hay caché) o falla la clave. Mira el log del plugin. |
+| `start.sh models` sin `local_litellm` justo tras arrancar el servidor de fondo (o con `--standalone`) | El plugin publica los modelos con un `reload` en segundo plano, tras el evento `provider.updated`, y el comando lista antes de que termine. Repite el comando. No afecta a `run` ni a la TUI, que usan los modelos ya publicados. |
 | Aviso "se usan los modelos guardados el …" | LiteLLM no respondió al arrancar opencode: arranca LiteLLM; se recupera en la siguiente sesión. |
 | Modelo sin límites, imagen ni razonamiento | LiteLLM no lo conoce: declara su `model_info` (ver arriba). Compruébalo con `curl -H "Authorization: Bearer $KEY" http://127.0.0.1:4000/v1/model/info`. |
 | Un modelo nuevo no aparece | Se consulta como mucho una vez por minuto: abre una sesión nueva. Si sigue sin aparecer, reinicia el servidor de fondo con `start.sh service restart`. |

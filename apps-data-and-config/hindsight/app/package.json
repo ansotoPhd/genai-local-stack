@@ -3,6 +3,11 @@
   "private": true,
   "description": "UI (control plane) de Hindsight del stack GenAI",
   "dependencies": {
-    "@vectorize-io/hindsight-control-plane": "0.10.3"
+    "@vectorize-io/hindsight-control-plane": "1.2.1"
+  },
+  "allowScripts": {
+    "@swc/core": false,
+    "@parcel/watcher": false,
+    "unrs-resolver": false
   }
 }

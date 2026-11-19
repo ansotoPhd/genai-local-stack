@@ -2,7 +2,7 @@
 
 [LiteLLM](https://docs.litellm.ai/) es el gateway de modelos del stack: expone una API compatible con OpenAI en http://127.0.0.1:4000 y la traduce a cada proveedor. Los clientes del stack (opencode, JupyterLab, Hindsight) solo conocen LiteLLM y su clave, nunca las claves de los proveedores.
 
-- Instalación: `apps-data-and-config/litellm/app` (`litellm[proxy]` con uv).
+- Instalación: `apps-data-and-config/litellm/app` (`litellm[proxy]` con uv). Sigue la rama LTS 1.108.x: `update.sh` sube dentro de ella; para cambiar de rama, ajusta el rango en `app/pyproject.toml` y también en `hindsight/app/pyproject.toml` (`constraint-dependencies`), que usa LiteLLM como librería.
 - Configuración: `litellm/config/config.yaml` (credenciales, modelos y ajustes) y `litellm/config/.env` (secretos y conexiones).
 
 ## Credenciales
@@ -17,7 +17,15 @@ La clave se copia de https://opencode.ai/console (OpenCode Go → API key). Cada
 
 El gateway de Go no es un OpenAI-compatible genérico: exige un identificador estable de sesión en `x-opencode-session` y un `User-Agent` propio. Por eso cada modelo lleva `litellm_params.extra_headers` con los dos. El identificador es fijo para todo el stack (no es un secreto, pero conviene no reutilizarlo fuera).
 
-Los 28 modelos del catálogo están en `model_list` con `model_name: go-<id>`. Su `model_info` (contexto, precio por token, visión/PDF, herramientas y niveles de razonamiento) se genera desde `https://opencode.ai/inference/go/v1/models`, que ya publica esos datos; no hay que mantenerlo a mano.
+Los modelos del catálogo están en `model_list` con `model_name: go-<id>`. Su `model_info` (contexto, precio por token, visión/PDF/audio, herramientas y niveles de razonamiento) se genera desde `https://opencode.ai/inference/go/v1/models`, que ya publica esos datos; no hay que mantenerlo a mano:
+
+```bash
+apps-data-and-config/litellm/update-models.py --check   # muestra qué cambiaría (añadidos, retirados, cambiados)
+apps-data-and-config/litellm/update-models.py           # reescribe model_list en la plantilla config.example.yaml
+apps-data-and-config/litellm/update-models.py --local   # y también en tu config.yaml
+```
+
+Solo reescribe la sección `model_list` (el resto del fichero no se toca). La cabecera del script documenta el mapeo de cada campo. Dos decisiones: si la escritura en caché tiene varias TTL se usa la más corta, y los multiplicadores de precio por horario o fecha no se trasladan (LiteLLM no los admite). Los modelos que añadas a mano a `model_list` se pierden al regenerar: para modelos propios, usa la UI (ver más abajo).
 
 ## Modelos
 
@@ -35,7 +43,7 @@ Cada entrada de `model_list` define un **model_name**: el nombre que usan los cl
     drop_params: true
   model_info:
     display_name: "GPT-6 Luna (OpenCode Go)"
-    max_input_tokens: 922000
+    max_input_tokens: 922000          # limit.input del catálogo (o limit.context si no hay)
     max_output_tokens: 128000
     input_cost_per_token: 1e-07
     output_cost_per_token: 5e-07
@@ -72,6 +80,7 @@ LiteLLM aplica las migraciones al arrancar, así que Postgres debe estar levanta
 - `drop_params: true`: descarta los parámetros que el modelo de destino no admite en vez de fallar. Por ejemplo, un `reasoning_effort` enviado a un modelo sin razonamiento.
 - `modify_params: true`: adapta parámetros incompatibles, p. ej. el tool calling hacia Claude.
 - `callbacks: ["otel"]` + `LITELLM_OTEL_V2=true`: telemetría OpenTelemetry v2 (ver [Observabilidad](../integraciones/observabilidad.md)).
+- `trusted_proxy_ranges: []` (en `general_settings`): no hay proxy inverso delante de LiteLLM y los clientes conectan directamente. LiteLLM usa la dirección real del cliente, no confía en cabeceras reenviadas (`X-Forwarded-For`) y limita los intentos fallidos de login en la UI también por dirección de origen. Si algún día lo pones detrás de un proxy, cambia `[]` por el rango de ese proxy (p. ej. `["10.0.0.0/8"]`).
 
 ## Clientes y claves
 

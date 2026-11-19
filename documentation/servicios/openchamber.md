@@ -54,10 +54,10 @@ También desde el launcher, con su tarjeta **OpenChamber** (arranca LiteLLM ante
 
 ## Requisitos y actualización
 
-Necesita **Node ≥ 24.14** (`nvm install 24`); `install.sh` y `update.sh` localizan esa versión y no tocan el Node del sistema.
+Necesita **Node 24 (≥ 24.14)**. Los scripts (`node24.sh`) buscan, por este orden, el Node 24 más reciente de nvm (`nvm install 24`), el de fnm (`fnm install 24`) y el `node` del `PATH` si cumple esa versión. Solo lo anteponen al `PATH` de OpenChamber; no cambian el Node del sistema.
 
 ```bash
 apps-data-and-config/openchamber/update.sh   # última versión publicada
 ```
 
-La versión está fijada en `app/package.json` y `app/package-lock.json`.
+La versión está fijada en `app/package.json` y `app/package-lock.json`. Ahí mismo, `allowScripts` aprueba el script de instalación de `node-pty`, que compila el módulo nativo del terminal integrado (npm 11 bloquea por defecto los no aprobados). Se aprueba por nombre y no por versión para que `update.sh` no lo deje sin compilar al subir de versión.

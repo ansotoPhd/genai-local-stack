@@ -44,3 +44,10 @@ memory.create_bank(bank_id=bank)                      # idempotente; sin banco, 
 memory.retain(bank_id=bank, content="Prefiero respuestas en español")
 memory.recall(bank_id=bank, query="¿En qué idioma respondo?")
 ```
+
+## Cifrado de los kernels
+
+El servidor habla con cada kernel por ZMQ sobre TCP en 127.0.0.1. `jupyter_server_config.py` activa `c.KernelManager.transport_encryption = "required"`: el servidor genera unas claves CurveZMQ para cada kernel y ese canal va cifrado. Así, otro usuario de la máquina no puede leer ni inyectar mensajes en los puertos del kernel; además, desaparece el aviso «Kernel is running over TCP without encryption».
+
+- Con `required`, un kernel que no declare `"supported_encryption": ["curve"]` en su kernelspec no arranca, en vez de usar texto plano. El `python3` del stack sí lo declara. Si instalas otro kernel que no lo admita, cambia a `"auto"` (cifra solo los que lo admiten).
+- La alternativa que propone el aviso, el transporte IPC (sockets Unix), no es viable aquí: los sockets se crean en `data/runtime/` y la ruta supera el límite de 107 caracteres de Linux.

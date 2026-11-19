@@ -67,3 +67,5 @@ opencode arranca un servidor en segundo plano que usan sus clientes. Ese servido
 | `config/hindsight.json` | Config del plugin de memoria (ver [opencode ↔ Hindsight](../integraciones/opencode-hindsight.md)) |
 
 Actualizar: `opencode/update.sh` sube opencode y el plugin de Hindsight a la última versión. Después, `opencode-plugins/update.sh` alinea los tipos de los plugins propios.
+
+`app/package.json` aprueba en `allowScripts` el `postinstall` de `@opencode/cli`, que es el que coloca el binario de la plataforma. npm 11 bloquea por defecto los scripts de instalación no aprobados, y sin él opencode quedaría sin binario. Se aprueba por nombre y no por versión (`npm install-scripts approve --no-allow-scripts-pin`) para que `update.sh` siga funcionando al cambiar de versión.

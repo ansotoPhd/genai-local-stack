@@ -172,7 +172,7 @@ def build_services() -> dict[str, Service]:
             stop=lambda: script("otel-lgtm", "stop.sh"),
             healthy=lambda: http_ok(f"http://127.0.0.1:{lgtm().get('LGTM_GRAFANA_PORT', '3000')}/api/health"),
             links=lambda: [Link("Grafana", f"http://127.0.0.1:{lgtm().get('LGTM_GRAFANA_PORT', '3000')}")],
-            # down -v elimina el volumen con métricas, trazas, logs, perfiles y la BD de Grafana.
+            # stop.sh -v vacía data/: métricas, trazas, logs, perfiles y la BD de Grafana.
             reset=lambda: script("otel-lgtm", "stop.sh", "-v"),
             reset_confirm=(
                 "Se borrarán todas las métricas, trazas, logs y perfiles de otel-lgtm, y también los "

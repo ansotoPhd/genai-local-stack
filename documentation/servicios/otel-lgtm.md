@@ -15,7 +15,7 @@ Todos los puertos se publican solo en `127.0.0.1` y se configuran en `otel-lgtm/
 
 ## Datos
 
-Métricas, trazas, logs y dashboards se guardan en el volumen Docker `genai-otel-lgtm_lgtm-data`, no en `data/`. El contenedor corre como root, que es lo que necesita Grafana para instalar sus plugins de datasource. Los datos se conservan al parar; `otel-lgtm/stop.sh -v` (o «Borrar datos» en el launcher) los borra.
+Métricas, trazas, logs y dashboards se guardan en `otel-lgtm/data/`. El contenedor corre con tu usuario, como Postgres, así que esos ficheros son tuyos. Además tiene el grupo 0 como grupo secundario (`group_add`): Grafana actualiza al arrancar sus plugins de datasource borrando antes su carpeta, que en la imagen (desde la 0.39) solo pueden modificar el propietario y el grupo 0; sin ese grupo perdería Prometheus, Loki, Tempo y Pyroscope. Los datos se conservan al parar; `otel-lgtm/stop.sh -v` (o «Borrar datos» en el launcher) vacía `data/`.
 
 ## Uso
 

@@ -19,7 +19,10 @@ Está en `apps-data-and-config/hindsight/`. Corre en nativo: la API con uv (`hin
 
 ## Notas
 
-- **LLM**: sin la clave de OpenAI en LiteLLM (o con otro modelo inexistente), `recall` funciona, pero `retain` y `reflect` no pueden extraer ni razonar.
+- **LLM**: sin la clave de OpenCode Go en LiteLLM (o con otro modelo inexistente), `recall` funciona, pero `retain` y `reflect` no pueden extraer ni razonar. Al arrancar, Hindsight verifica el LLM: si falla, lo avisa en el log y arranca igualmente.
+- **Modelo**: desde Hindsight 1.2, todas sus llamadas al LLM piden la respuesta con un *response schema* (no usa *tool calling* nativo). Si cambias `HINDSIGHT_API_LLM_MODEL`, elige un modelo con salida estructurada (`structured_output` en el catálogo de Go).
+- **Scripts de instalación de la UI**: `app/package.json` deniega en `allowScripts` los de `@swc/core`, `@parcel/watcher` y `unrs-resolver`. Son herramientas de compilación que el control plane ya publicado no necesita para ejecutarse, y así npm 11 no avisa en cada instalación.
+- **LiteLLM como librería**: `hindsight-api-slim` depende de `litellm`. `app/pyproject.toml` lo restringe con `constraint-dependencies` a la misma rama LTS 1.108.x que el proxy ([LiteLLM](litellm.md)), así que `update.sh` no lo saca de ella.
 - **Embeddings**: el modelo se descarga la primera vez (~470 MB) en `hindsight/data/hf`. La dimensión de los embeddings queda fijada en la BD, así que cambiar de modelo obliga a reindexar.
 
 ## Bancos

@@ -3,9 +3,9 @@
 set -euo pipefail
 SVC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Node 24 es requisito del paquete (se instala con nvm; no se usa el node del sistema).
-NODE24="$(ls -d "$HOME"/.nvm/versions/node/v24.*/bin 2>/dev/null | sort -V | tail -1)"
-[[ -n "$NODE24" ]] || { echo "Falta Node 24. Instálalo con: nvm install 24" >&2; exit 1; }
+# Node 24 (≥ 24.14) es requisito del paquete: de nvm, de fnm o del PATH (ver node24.sh).
+source "$SVC/node24.sh"
+NODE24="$(find_node24)" || { echo "$NODE24_MISSING_MSG" >&2; exit 1; }
 [[ -x "$SVC/app/node_modules/.bin/openchamber" ]] || { echo "Falta la instalación. Ejecuta $SVC/install.sh" >&2; exit 1; }
 
 set -a; source "$SVC/config/.env"; set +a

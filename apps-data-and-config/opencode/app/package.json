@@ -3,7 +3,10 @@
   "private": true,
   "description": "opencode aislado del stack GenAI",
   "dependencies": {
-    "@opencode/cli": "2.2.5",
-    "@vectorize-io/hindsight-coding-agents": "0.8.4"
+    "@opencode/cli": "2.3.2",
+    "@vectorize-io/hindsight-coding-agents": "0.8.7"
+  },
+  "allowScripts": {
+    "@opencode/cli": true
   }
 }

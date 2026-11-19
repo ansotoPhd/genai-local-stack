@@ -15,7 +15,7 @@ Este README es la guía rápida. La documentación técnica (arquitectura, cada 
 ## Requisitos
 
 - [uv](https://docs.astral.sh/uv/) (descarga Python 3.14 si no lo tienes)
-- Node.js ≥ 20 con npm (y **Node 24** vía nvm para OpenChamber)
+- Node.js ≥ 20 con npm (OpenChamber necesita **Node 24 ≥ 24.14**: de nvm, de fnm o del sistema)
 - Docker con Compose v2 (para Postgres y otel-lgtm; sin Docker, `setup.sh` los omite)
 - bash
 
@@ -34,7 +34,7 @@ Es idempotente: solo rellena valores vacíos y, si una plantilla gana variables 
 
 Después:
 1. Copia tu clave de OpenCode Go en `OPENCODE_GO_API_KEY` dentro de `apps-data-and-config/litellm/config/.env`. Se obtiene en https://opencode.ai/console (OpenCode Go → API key).
-2. Los modelos del catálogo (`go-<id>`) ya están en `litellm/config/config.yaml`; opencode los descubre solo, sin declararlos en su config (ver [LiteLLM](documentation/servicios/litellm.md) y [opencode ↔ LiteLLM](documentation/integraciones/opencode-litellm.md)).
+2. Los modelos del catálogo (`go-<id>`) ya están en `litellm/config/config.yaml` y se actualizan con `litellm/update-models.py`; opencode los descubre solo, sin declararlos en su config (ver [LiteLLM](documentation/servicios/litellm.md) y [opencode ↔ LiteLLM](documentation/integraciones/opencode-litellm.md)).
 
 ## Launcher
 
@@ -120,6 +120,7 @@ Si cambias un puerto, reinicia el servicio y actualiza las variables que apuntan
 ```bash
 apps-data-and-config/<servicio>/update.sh                    # p. ej. litellm/update.sh, opencode/update.sh
 apps-data-and-config/opencode-plugins/update.sh              # tras actualizar opencode: alinea los plugins propios
+apps-data-and-config/litellm/update-models.py --local        # catálogo de modelos de OpenCode Go (--check para ver antes)
 ```
 
 Cada `update.sh` actualiza a la última versión publicada y regenera el lockfile. En los servicios Docker actualiza el tag fijado en `app/compose.yaml`; Postgres no cambia de versión mayor, porque requiere dump/restore. Haz commit de `uv.lock`, `package.json`/`package-lock.json` o `compose.yaml` para que el resto de clones instalen la misma versión.
